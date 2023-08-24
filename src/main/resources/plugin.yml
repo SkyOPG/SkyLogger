@@ -1,0 +1,4 @@
+name: SkyLogger
+description: A minimal Logging plugin to log your players activity in discord!
+version: '${project.version}'
+main: org.skydevelopment.logger.Logger

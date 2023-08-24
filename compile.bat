@@ -1,0 +1,1 @@
+mvn install -f "%~dp0pom.xml"

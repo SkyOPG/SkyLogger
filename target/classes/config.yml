@@ -1,0 +1,15 @@
+webhooks:
+  main: none
+  leave: none
+  join: none
+  break: none
+  kill: none
+  achievement: none
+whitelist:
+  on: false
+  break: [ ]
+  place: [ ]
+blacklist:
+  on: false
+  break: [ ]
+  place: [ ]
