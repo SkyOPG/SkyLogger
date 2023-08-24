@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -24,6 +25,7 @@ public class Events implements Listener {
     String Join = this.log.config.getString("webhook.join");
     String Leave = this.log.config.getString("webhook.leave");
     String Break = this.log.config.getString("webhook.break");
+    String Place = this.log.config.getString("webhook.place");
     String Kill = this.log.config.getString("webhook.kill");
     String Achievement = this.log.config.getString("webhook.achievement");
 
@@ -31,14 +33,14 @@ public class Events implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
         if(Join != "none" && Join.startsWith("https://discord.com/api/webhooks/"))
-        c.sendToWebhook(Join, "User Joined", "the user `"+player.getDisplayName()+"` Just Joined");
+            c.sendToWebhook(Join, "User Joined", "the user `"+player.getDisplayName()+"` Just Joined");
         else return;
     }
     @EventHandler
     public void onLeave(PlayerQuitEvent event){
         Player player = event.getPlayer();
         if(Leave != "none" && Leave.startsWith("https://discord.com/api/webhooks/"))
-        c.sendToWebhook(Leave, "User Left", "the user `"+player.getDisplayName()+"` Has Left");
+            c.sendToWebhook(Leave, "User Left", "the user `"+player.getDisplayName()+"` Has Left");
         else return;
     }
     @EventHandler
@@ -46,7 +48,15 @@ public class Events implements Listener {
         Player player = event.getPlayer();
         Block block = event.getBlock();
         if(Break != "none" && Break.startsWith("https://discord.com/api/webhooks"))
-        c.sendToWebhook(Break, "Block Broken", "The User `"+player.getDisplayName()+"` Had just broke the block `"+block.getType().name()+"`");
+            c.sendToWebhook(Break, "Block Broken", "The User `"+player.getDisplayName()+"` Had just broke the block `"+block.getType().name()+"`");
+        else return;
+    }
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event){
+        Player player = event.getPlayer();
+        Block block = event.getBlock();
+        if(Place != "none" && Place.startsWith("https://discord.com/api/webhooks"))
+            c.sendToWebhook(Place, "Block Placed", "The user `"+player.getDisplayName()+"` Had placed the block `"+block.getType().name()+"`");
         else return;
     }
     @EventHandler
@@ -66,7 +76,7 @@ public class Events implements Listener {
         Player player = event.getPlayer();
         Achievement achievement = event.getAchievement();
         if(Achievement != "none" && Achievement.startsWith("https://discord.com/"))
-        c.sendToWebhook(Achievement, "Achievement Earned", "The Player `"+player.getDisplayName()+"` had unlocked the `"+achievement.name()+"` Achievement");
+            c.sendToWebhook(Achievement, "Achievement Earned", "The Player `"+player.getDisplayName()+"` had unlocked the `"+achievement.name()+"` Achievement");
         else return;
     }
 }
